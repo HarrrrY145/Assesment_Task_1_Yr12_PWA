@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css')}}">
+    <title>Document</title>
+</head>
+<body>
+    <main>
+        <h1>Inventory & Order <br>
+        Management System</h1>
+        <form method="post" action="/login_validation">
+            <input type = "Username" name = "Username" placeholder = "Enter Username"><br>
+            <input type = "password" name = "password" placeholder = "Enter Password"><br>
+            <button type = "submit" value= "login">login</button>
+            <img class = "UnknownUser">
+            <button type = "submit" value="New_Account">New User</button>
+        </form>
+    </main>    
+</body>
+</html>
