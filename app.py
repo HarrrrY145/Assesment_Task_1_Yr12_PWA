@@ -11,7 +11,14 @@ app.secret_key = os.urandom(24)
 def login():
     return render_template('login.html')
 
-@app.route('')
+
+@app.route('/signUp')
+def signUp():
+    return render_template('signUp.html')
+
+@app.route('/newUser')
+def newUser():
+    return render_template('newUser.html')
 
 if __name__ == '__main__':
     serve(app, host="0.0.0.0", port=8080)
