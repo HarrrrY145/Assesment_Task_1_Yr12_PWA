@@ -6,6 +6,13 @@
     <title>Document</title>
 </head>
 <body>
-    <p> THIS IS THE NEW USER PAGE</p>
+    <main>
+        <form method="post" action="/add_user">
+            <input type="Login_ID" name="Login_ID" placeholder="Create a Login ID"><br>
+            <input type="password" name="password" placeholder="Create a Password"><br>
+            <button type="submit" value="signUp">create account</button>
+        </form>
+        <p>Already have an account<br><a href='/login.html'>login</a></p>
+    </main>
 </body>
 </html>
