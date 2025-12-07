@@ -16,9 +16,9 @@ check_Users = """SELECT * FROM USERS"""
 cursor.execute(check_Users)
 i = cursor.fetchone() 
 
+cursor.execute("INSERT INTO USERS (Admin, Login_ID, password) VALUES (1, 'AdminUser', '123')")
+cursor.execute("INSERT INTO USERS (Admin, Login_ID, password) VALUES (0, 'NormalUser', '123')")
 
-cmd2 = """INSERT INTO USERS (login_ID,password)values('tester','testerP')"""
-cursor.execute(cmd2)
     
 
 inventory_database = """ CREATE TABLE IF NOT EXISTS INVENTORY ( UNIQUE_SERIAL_NUMBER INT primary key,

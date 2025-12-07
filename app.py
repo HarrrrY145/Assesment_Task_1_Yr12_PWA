@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, session
 import sqlite3
 import os
 from waitress import serve 
@@ -30,6 +30,9 @@ def inventory_table():
 def login():
     return render_template('login.html')
 
+
+
+
 @app.route('/login_validation', methods=['POST'])
 def login_valdiation():
     login_ID = request.form.get('login_ID')
@@ -38,12 +41,33 @@ def login_valdiation():
     connection = sqlite3.connect('LoginData.db')
     cursor = connection.cursor()
 
-    user = cursor.execute("SELECT * FROM USERS WHERE login_ID=? AND password=?", (login_ID,password)).fetchall()
-    if len(user) > 0:
-        items = get_inventory_table()
+    user = cursor.execute("SELECT UNIQUE_ID, Admin, login_ID FROM USERS WHERE login_ID=? AND password=?", (login_ID,password)).fetchone()
+    
+    #if user exists
+    if user: 
+        session['user_id'] = user [0]
+        session['is_admin'] = bool(user[1])
+        session['login_ID'] = user [2]
+
         return redirect("/userHome")
+    
     else:
         return redirect('/')
+    
+@app.route('/adminPage')
+def admin_page():
+    if not session.get('is_admin'):
+        return "Access Denied: Admins Only", 403
+    
+
+    return render_template('adminPage.html')
+
+
+
+
+
+
+
 
 @app.route('/verification')
 def signUp():

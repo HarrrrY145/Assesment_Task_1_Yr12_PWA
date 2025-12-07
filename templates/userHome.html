@@ -102,6 +102,8 @@
       padding: 8px 14px;
       border-radius: 4px;
       cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
     }
 
     /* Sidebar menu */
@@ -163,7 +165,7 @@
     font-weight: bold;
   }
   .add-bar button:hover {
-    background-color: #45a049;
+    background-color: #1abc9c;
   }
 
   </style>
@@ -174,7 +176,9 @@
   <div class="topnav">
     <button class="menu-btn" onclick="openSidebar()">☰ Menu</button>
     <h1>Inventory Dashboard</h1>
-    <button class="signout-btn">Sign Out</button>
+    
+    <a href="/" class="signout-btn">Sign Out</a>
+    
   </div>
 
   <!-- Sidebar -->
@@ -183,8 +187,12 @@
     <a href="#">Dashboard</a>
     <a href="#">Orders</a>
     <a href="#">Inventory</a>
-    <a href="#">Users</a>
-    <a href="#">Admin</a>
+    {% if session.is_admin %}
+    <a href="/adminPage">Admin</a>
+    {% endif %}
+
+
+    
   </div>
 
   <!-- Main Content -->
@@ -194,6 +202,7 @@
   <button id="addNewInventory"> Add Inventory</button>
   </form>
 </div>
+
 <!--Table-->
   <div class="table-container">
     <table>
