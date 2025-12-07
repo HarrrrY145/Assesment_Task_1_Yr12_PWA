@@ -114,3 +114,62 @@ main .UnknownUser{
     background-repeat: no-repeat;
     background-position: center;
 }
+
+
+
+
+/* TABLE */
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    margin: 20px 0;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+    /* Base table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: "Segoe UI", Tahoma, sans-serif;
+    font-size: 14px;
+    color: #333;
+    background-color: #fff;
+}
+
+    /* Header styling */
+table th {
+    text-align: left;
+    padding: 12px 16px;
+    font-weight: 600;
+    color: #222;
+    background: #f4f6f8;
+    border-bottom: 2px solid #e0e0e0;
+    cursor: pointer; /* indicates sortable columns */
+    position: relative;
+}
+
+table th:hover {
+    background-color: #e9ecef;
+}
+
+    /* Row styling */
+table tr {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+table tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+table td {
+    padding: 12px 16px;
+    vertical-align: middle;
+}
+
+    /* Hover effect */
+table tr:hover {
+    background-color: #f1f7ff;
+    transition: background-color 0.2s ease-in-out;
+}

@@ -1,37 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inventory System - Home</title>
   <style>
+    /* Container for responsiveness */
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+      margin: 20px 0;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+
+    /* Base table styling */
     table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-    font-family: Arial, sans-serif;
-    font-size: 14px;
+      width: 100%;
+      border-collapse: collapse;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      font-size: 14px;
+      color: #333;
+      background-color: #fff;
     }
 
-    th, td {
-    border: 1px solid #ddd;
-    padding: 10px 15px;
-    text-align: left;
+    /* Header styling */
+    table th {
+      text-align: left;
+      padding: 12px 16px;
+      font-weight: 600;
+      color: #222;
+      background: #f4f6f8;
+      border-bottom: 2px solid #e0e0e0;
+      cursor: pointer; /* indicates sortable columns */
+      position: relative;
     }
 
-    th {
-    background-color: #4CAF50;
-    color: white;
-    font-weight: bold;
+    table th:hover {
+      background-color: #e9ecef;
     }
 
-    tr:nth-child(even) {
-    background-color: #f9f9f9;
+    /* Row styling */
+    table tr {
+      border-bottom: 1px solid #e0e0e0;
     }
 
-    tr:hover {
-    background-color: #f1f1f1;
+    table tr:nth-child(even) {
+      background-color: #fafafa;
+    }
+
+    table td {
+      padding: 12px 16px;
+      vertical-align: middle;
+    }
+
+    /* Hover effect */
+    table tr:hover {
+      background-color: #f1f7ff;
+      transition: background-color 0.2s ease-in-out;
     }
 
     caption {
@@ -117,6 +143,29 @@
     .content {
       padding: 20px;
     }
+
+
+  .add-bar {
+    background-color: #ecf0f1;
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+
+  }
+  .add-bar button {
+    background-color: #222;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  .add-bar button:hover {
+    background-color: #45a049;
+  }
+
   </style>
 </head>
 <body>
@@ -134,39 +183,49 @@
     <a href="#">Dashboard</a>
     <a href="#">Orders</a>
     <a href="#">Inventory</a>
-    <a href="#">Reports</a>
-    <a href="#">Settings</a>
+    <a href="#">Users</a>
+    <a href="#">Admin</a>
   </div>
 
   <!-- Main Content -->
-<!--Table-->
-  <table>
-    <tr>
-        <th>Serial Number</th>
-        <th>Product Name</th>
-        <th>Quantity</th>
-        <th>Price</th>
-        <th>Store</th>
-    </tr>
-    <tr>   
-        <td>000000</td>
-        <td>test</td>
-        <td>0.00</td>
-        <td>0</td>
-        <td>sydney</td>
-    </tr>
 
-    {% for row in item %}
-    <tr>
-        <td>{{ row[0] }}</td>
-        <td>{{ row[2] }}</td>
-        <td>{{ row[4] }}</td>
-        <td>{{ row[3] }}</td>
-        <td>{{ row[1] }}</td>
-    </tr>
-    {% endfor %}
-  </table>
-  <p>checking{{item}}</p>
-  </body>
-  </html>
-  
+<div class="add-bar">
+  <form action="{{url_for('addInventory')}}" method="get">
+  <button id="addNewInventory"> Add Inventory</button>
+  </form>
+</div>
+<!--Table-->
+  <div class="table-container">
+    <table>
+      <tr>
+          <th>Serial Number</th>
+          <th>Product Name</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Store</th>
+      </tr>
+      {% for row in item %}
+      <tr>
+          <td>{{ row[1] }}</td>
+          <td>{{ row[3] }}</td>
+          <td>{{ row[5] }}</td>
+          <td>{{ row[4] }}</td>
+          <td>{{ row[2] }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+
+
+  <script>
+    function openSidebar() {
+      document.getElementById("sidebar").style.width = "250px";
+    }
+
+    function closeSidebar() {
+      document.getElementById("sidebar").style.width = "0";
+    }
+  </script>
+
+</body>
+</html>

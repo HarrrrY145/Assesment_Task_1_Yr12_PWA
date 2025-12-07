@@ -5,6 +5,7 @@ from waitress import serve
 
 
 print("http://localhost:8080/")
+print("http://localhost:8080/userHome")
 
 
 app = Flask(__name__)
@@ -52,6 +53,37 @@ def signUp():
 def newUser():
     return render_template('newUser.html')
 
+@app.route('/addInventory')
+def addInventory():
+    return render_template('addInventory.html')
+
+
+
+
+@app.route('/add_inventory', methods=['POST'])
+def add_inventory():
+    serialNumber = request.form.get('Serial_Number')
+    productName =request.form.get('Product_Name')
+    quantity = request.form.get('Quantity')
+    price =request.form.get('Price')
+    store =request.form.get('Store')
+    
+    connection = sqlite3.connect('LoginData.db')
+    cursor = connection.cursor()
+
+    ans = cursor.execute("select * from INVENTORY where Serial_Number=? AND Store=? AND Product_Name=? AND Quantity=? AND Price=?",(serialNumber,store,productName,quantity,price)).fetchall()
+
+    if len(ans) > 0:
+        connection.close()
+        return render_template('addInventory.html')
+    else:
+        cursor.execute("INSERT INTO INVENTORY(Serial_Number,Store,Product_Name,Quantity,Price)values(?,?,?,?,?)",(serialNumber,store,productName,quantity,price))
+        connection.commit()
+        connection.close()
+        return redirect('/userHome')
+        
+
+
 @app.route('/add_user', methods=['POST'])
 def add_user():
     Login_ID = request.form.get('Login_ID')
@@ -70,6 +102,7 @@ def add_user():
         connection.commit()
         connection.close()
         return render_template('login.html')
+
 
 
 if __name__ == '__main__':
