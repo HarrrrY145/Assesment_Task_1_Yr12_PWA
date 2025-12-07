@@ -3,10 +3,28 @@ import sqlite3
 import os
 from waitress import serve 
 
+
+print("http://localhost:8080/")
+
+
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
 # Routing the user to the login page. 
+
+def get_inventory_table():
+    conn = sqlite3.connect("LoginData.db")
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM INVENTORY;")
+    row = cursor.fetchall()
+    conn.close()
+    return row
+
+@app.route("/userHome", methods=["GET", "POST"])
+def inventory_table():
+    item = get_inventory_table()
+    return render_template("userHome.html", item=item)
+
 @app.route('/') 
 def login():
     return render_template('login.html')
@@ -21,7 +39,8 @@ def login_valdiation():
 
     user = cursor.execute("SELECT * FROM USERS WHERE login_ID=? AND password=?", (login_ID,password)).fetchall()
     if len(user) > 0:
-        return render_template('userHome.html')
+        items = get_inventory_table()
+        return redirect("/userHome")
     else:
         return redirect('/')
 
@@ -55,3 +74,4 @@ def add_user():
 
 if __name__ == '__main__':
     serve(app, host="0.0.0.0", port=8080)
+
