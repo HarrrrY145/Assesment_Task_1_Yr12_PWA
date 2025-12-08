@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, session
+from flask import Flask, render_template, request, redirect, session, url_for
 import sqlite3
 import os
 from waitress import serve 
@@ -8,15 +8,27 @@ print("http://localhost:8080/")
 print("http://localhost:8080/userHome")
 
 
+
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
 # Routing the user to the login page. 
 
+
+#Getting all from the inventory table
 def get_inventory_table():
     conn = sqlite3.connect("LoginData.db")
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM INVENTORY;")
+    row = cursor.fetchall()
+    conn.close()
+    return row
+
+# Getting all from the users 
+def get_user_table():
+    conn = sqlite3.connect("LoginData.db")
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM USERS;")
     row = cursor.fetchall()
     conn.close()
     return row
@@ -54,18 +66,16 @@ def login_valdiation():
     else:
         return redirect('/')
     
-@app.route('/adminPage')
+
+
+
+@app.route("/adminPage", methods=["GET","POST"])
 def admin_page():
     if not session.get('is_admin'):
         return "Access Denied: Admins Only", 403
     
-
-    return render_template('adminPage.html')
-
-
-
-
-
+    item = get_user_table()
+    return render_template("adminPage.html", item=item)
 
 
 
@@ -126,6 +136,25 @@ def add_user():
         connection.commit()
         connection.close()
         return render_template('login.html')
+
+#Deleting users and Inventory:
+@app.route("/delete_user/<int:user_id>", methods=['POST'])
+def delete_user(user_id):
+    conn = sqlite3.connect("LoginData.db")
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM USERS WHERE UNIQUE_ID = ?", (user_id,))
+    conn.commit()
+    conn.close()
+    return redirect(url_for("admin_page"))
+
+
+
+
+
+
+
+
+
 
 
 

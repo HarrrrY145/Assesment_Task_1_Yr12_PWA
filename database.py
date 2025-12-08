@@ -5,7 +5,7 @@ X = True
 connection = sqlite3.Connection('LoginData.db')
 cursor = connection.cursor()
 
-cmd1 = """ CREATE TABLE IF NOT EXISTS USERS (UNIQUE_ID INT primary key,
+cmd1 = """ CREATE TABLE IF NOT EXISTS USERS (UNIQUE_ID INTEGER PRIMARY KEY AUTOINCREMENT,
                                         Admin BOOLEAN,
                                         login_ID varchar(50),
                                         password varchar(50) not null)"""
@@ -21,7 +21,7 @@ cursor.execute("INSERT INTO USERS (Admin, Login_ID, password) VALUES (0, 'Normal
 
     
 
-inventory_database = """ CREATE TABLE IF NOT EXISTS INVENTORY ( UNIQUE_SERIAL_NUMBER INT primary key,
+inventory_database = """ CREATE TABLE IF NOT EXISTS INVENTORY ( UNIQUE_SERIAL_NUMBER INTEGER PRIMARY KEY AUTOINCREMENT,
                                                                 Serial_Number INT,
                                                                 Store varchar(50),
                                                                 Product_Name varchar(100),
