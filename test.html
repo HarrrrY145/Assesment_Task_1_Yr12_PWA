@@ -213,12 +213,12 @@
 <!-- TOP MENU -->
 <div class="top-menu">
     <img src="/static/Logo-Small.png" class="logo">
-    <div class="active">Inventory</div>
+    <a href="/userHome">Inventory</a>
     <div>Dashboard</div>
     <div>Orders</div>    
 
     {% if session.is_admin %}
-    <a href="/adminPage">Admin</a>
+    <a href="/adminPage" class="active">Admin</a>
     {% endif %}   
 
     
@@ -232,72 +232,60 @@
   <form action="{{url_for('addInventory')}}" method="get">
   <button id="addNewInventory" class="btn""> New</button>
   </form>
-    <button class="btn">Order</button>
-    <button class="btn">Delete</button>
-    <input type="text" id="searchbar" class="search-input" onkeyup="searchbar()" placeholder="Search for names.." title="Type in a name">
+    <button class="btn">Update</button>
+    <input type="text" id="searchInput" class="search-input" onkeyup="searchbar()" placeholder="Search for Usernames.." title="Type in a name">
 
 </div>
 
 <!-- SUBTABS -->
 <div class="subtabs">
-    <div class="active">Replenishment</div>
-    <div>Moves</div>
-    <div>Orders</div>
+    <div class="active">All</div>
 </div>
 
 <!-- PAGE CONTENT -->
 <div class="page">
 
-    <!-- LEFT SIDEBAR 
+    <!-- LEFT SIDEBAR -->
     <div class="sidebar">
-        <h4>Locations</h4>
-        <div class="tree">
-            <div>All</div>
-            <div>Physical Locations</div>
-            <div style="margin-left:15px;">WH</div>
-            <div style="margin-left:30px;">WH/Stock</div>
-            <div style="margin-left:30px;">WH/Assembly</div>
-        </div>
-
-        <h4>Trigger</h4>
-        <div class="tree">
-            <div>All</div>
-            <div>Auto</div>
-            <div>Manual</div>
-        </div>
+        <h4>User Infomation</h4>
     </div>
-    -->
 
     <!-- MAIN CONTENT (TABLE) -->
     <div class="main">
-
-        <table>
-            <thead>
-                <tr>
-                    <th>Select</th>
-                    <th>Serial</th>
-                    <th>Product</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Location</th>
-                    <th></th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr>
-                  <td><input type="checkbox" checked></td>
-                {% for row in item %}
-                  <td>{{ row[1] }}</td>
-                  <td>{{ row[3] }}</td>
-                  <td>{{ row[5] }}</td>
-                  <td>{{ row[4] }}</td>
-                  <td>{{ row[2] }}</td>
+        <table id="inventoryTable">
+          <thead>
+              <tr>
+                <th>Select</th>
+                <th>User</th>
+                <th>Password</th>
+                <th>Role</th>
+                <th>Deactivate</th>
               </tr>
-              {% endfor %}
-            </tbody>
-        </table>
-
+          </thead>
+          <tbody>
+        {% for row in item %}
+        <tr>
+            <td><input type="checkbox"></td>
+            <td>{{ row[2] }}</td>
+            <td>{{ row[3] }}</td>
+            <td>
+                {%if row[1]%}
+                    Admin   
+                {% else %}
+                    User
+                {% endif %}
+            </td>
+            <td>
+            <form action="{{ url_for('delete_user', user_id=row[0])}}" method="post">
+            <button class="btn" type="submit">
+                <i class="fa fa-trash"></i>
+            </button>
+            </form>
+            </td>
+        </tr>
+      {% endfor %}
+          </tbody>
+      </table>
     </div>
 </div>
 
@@ -305,17 +293,16 @@
 </html>
 
 <script>
+  
 function searchbar() {
-  // Declare variables
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("searchInput");
   filter = input.value.toUpperCase();
   table = document.getElementById("inventoryTable");
   tr = table.getElementsByTagName("tr");
 
-  // Loop through all table rows, and hide those who don't match the search query
   for (i = 1; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[1];
+    td = tr[i].getElementsByTagName("td")[2]; // Product column
     if (td) {
       txtValue = td.textContent || td.innerText;
       if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -326,4 +313,5 @@ function searchbar() {
     }
   }
 }
+
 </script>
