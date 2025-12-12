@@ -87,6 +87,10 @@ def signUp():
 def newUser():
     return render_template('newUser.html')
 
+@app.route('/adminCreateUser')
+def adminCreateUser():
+    return render_template('adminCreateUser.html')
+
 @app.route('/addInventory')
 def addInventory():
     return render_template('addInventory.html')
@@ -136,6 +140,30 @@ def add_user():
         connection.commit()
         connection.close()
         return render_template('login.html')
+    
+
+@app.route('/admin_add_user', methods=['POST'])
+def admin_add_user():
+    Login_ID = request.form.get('Login_ID')
+    password =request.form.get('password')
+    role = request.form.get('role')
+
+    is_admin = True if role == "Admin" else False
+    
+    connection = sqlite3.connect('LoginData.db')
+    cursor = connection.cursor()
+
+    ans = cursor.execute("select * from USERS where Login_ID=? AND password=?",(Login_ID,password)).fetchall()
+
+    if len(ans) > 0:
+        connection.close()
+        return render_template('adminPage.html')
+    else:
+        cursor.execute("INSERT INTO USERS(Admin, Login_ID, password)values(?,?,?)",(is_admin,Login_ID,password))
+        connection.commit()
+        connection.close()
+        item = get_user_table()
+        return render_template("adminPage.html", item=item)
 
 #Deleting users and Inventory:
 @app.route("/delete_user/<int:user_id>", methods=['POST'])

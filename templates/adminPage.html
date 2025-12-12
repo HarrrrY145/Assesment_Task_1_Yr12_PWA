@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Inventory – Replenishment</title>
 
@@ -229,10 +230,13 @@
 
 <!-- ACTION BUTTONS -->
 <div class="action-bar">
-  <form action="{{url_for('addInventory')}}" method="get">
+  <form action="{{url_for('adminCreateUser')}}" method="get">
   <button id="addNewInventory" class="btn""> New</button>
   </form>
-    <button class="btn">Update</button>
+  <form action="{{url_for('')}}" method="get">
+    <button id="UpdateRole"class="btn">Update</button>
+  </form>
+
     <input type="text" id="searchInput" class="search-input" onkeyup="searchbar()" placeholder="Search for Usernames.." title="Type in a name">
 
 </div>
@@ -265,7 +269,7 @@
           <tbody>
         {% for row in item %}
         <tr>
-            <td><input type="checkbox"></td>
+            <td><input type="checkbox" name="selectUser"></td>
             <td>{{ row[2] }}</td>
             <td>{{ row[3] }}</td>
             <td>
@@ -302,7 +306,7 @@ function searchbar() {
   tr = table.getElementsByTagName("tr");
 
   for (i = 1; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[2]; // Product column
+    td = tr[i].getElementsByTagName("td")[1]; // Product column
     if (td) {
       txtValue = td.textContent || td.innerText;
       if (txtValue.toUpperCase().indexOf(filter) > -1) {

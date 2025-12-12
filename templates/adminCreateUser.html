@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <main>
+        <form method="post" action="/admin_add_user">
+            <input type="Login_ID" name="Login_ID" placeholder="Create a Login ID"><br>
+            <input type="password" name="password" placeholder="Create a Password"><br>
+            <label for="role">Choose role:</label>
+            <select name="role" id="role">
+              <option value="">--Select a role--</option>
+                <option value="Admin">Admin</option>
+                <option value="General">General</option>
+            </select>
+            <br><br>
+            <button type="submit" value="signUp">create account</button>
+        </form>
+    </main>
+</body>
+</html>
