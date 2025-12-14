@@ -138,6 +138,7 @@
         width: 100%;
         border-collapse: collapse;
         background: #ffffff;
+        text-align: left;
     }
 
     thead {
@@ -233,9 +234,6 @@
   <form action="{{url_for('adminCreateUser')}}" method="get">
   <button id="addNewInventory" class="btn""> New</button>
   </form>
-  <form action="{{url_for('')}}" method="get">
-    <button id="UpdateRole"class="btn">Update</button>
-  </form>
 
     <input type="text" id="searchInput" class="search-input" onkeyup="searchbar()" placeholder="Search for Usernames.." title="Type in a name">
 
@@ -259,7 +257,7 @@
         <table id="inventoryTable">
           <thead>
               <tr>
-                <th>Select</th>
+                <th>Update Role</th>
                 <th>User</th>
                 <th>Password</th>
                 <th>Role</th>
@@ -269,7 +267,13 @@
           <tbody>
         {% for row in item %}
         <tr>
-            <td><input type="checkbox" name="selectUser"></td>
+            <td>  
+                <form action="{{url_for('UpdateRole',user_id=row[0])}}" method="post">
+                <button id="Update"class="btn">
+                    <i class="fa fa-key"></i>
+                </button>
+                </form>
+            </td>
             <td>{{ row[2] }}</td>
             <td>{{ row[3] }}</td>
             <td>

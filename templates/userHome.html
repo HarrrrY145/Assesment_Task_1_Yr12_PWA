@@ -227,47 +227,23 @@
     </div>
 </div>
 
-<!-- ACTION BUTTONS -->
+<!-- ACTION BUTTONS + SEARCH BAR -->
+<form action="{{url_for('delete_inventory')}}" method="post" id="deleteForm">
+
 <div class="action-bar">
-  <form action="{{url_for('addInventory')}}" method="get">
-  <button id="addNewInventory" class="btn""> New</button>
-  </form>
-    <button class="btn">Order</button>
-    <button class="btn">Delete</button>
+
+    <a href="{{ url_for('addInventory') }}" class="btn">New</a>
+
+    <button type="button" class="btn">Order</button>
+    
+    <button type="submit" class="btn">Delete</button>
+
     <input type="text" id="searchInput" class="search-input" onkeyup="searchbar()" placeholder="Search for product names.." title="Type in a name">
 
 </div>
 
-<!-- SUBTABS -->
-<div class="subtabs">
-    <div class="active">Replenishment</div>
-    <div>Moves</div>
-    <div>Orders</div>
-</div>
-
 <!-- PAGE CONTENT -->
 <div class="page">
-
-    <!-- LEFT SIDEBAR 
-    <div class="sidebar">
-        <h4>Locations</h4>
-        <div class="tree">
-            <div>All</div>
-            <div>Physical Locations</div>
-            <div style="margin-left:15px;">WH</div>
-            <div style="margin-left:30px;">WH/Stock</div>
-            <div style="margin-left:30px;">WH/Assembly</div>
-        </div>
-
-        <h4>Trigger</h4>
-        <div class="tree">
-            <div>All</div>
-            <div>Auto</div>
-            <div>Manual</div>
-        </div>
-    </div>
-    -->
-
     <!-- MAIN CONTENT (TABLE) -->
     <div class="main">
 
@@ -286,7 +262,7 @@
           <tbody>
               {% for row in item %}
               <tr>
-                  <td><input type="checkbox"></td>
+                  <td><input type="checkbox" name="delete_ids" value="{{row[0]}}"></td>
                   <td>{{ row[1] }}</td>
                   <td>{{ row[3] }}</td>
                   <td>{{ row[5] }}</td>
@@ -298,6 +274,9 @@
       </table>
     </div>
 </div>
+
+</form>
+
 
 </body>
 </html>

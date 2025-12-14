@@ -170,13 +170,40 @@ def admin_add_user():
 def delete_user(user_id):
     conn = sqlite3.connect("LoginData.db")
     cursor = conn.cursor()
+
     cursor.execute("DELETE FROM USERS WHERE UNIQUE_ID = ?", (user_id,))
+
     conn.commit()
     conn.close()
     return redirect(url_for("admin_page"))
 
 
+@app.route("/delete_inventory", methods=['POST'])
+def delete_inventory():
+    id_list = request.form.getlist("delete_ids")
+    print(id_list)
 
+    if not id_list:
+        return redirect(url_for("inventory_table"))
+    
+    conn = sqlite3.connect("LoginData.db")
+    cursor = conn.cursor()
+
+    cursor.executemany("DELETE FROM INVENTORY WHERE UNIQUE_SERIAL_NUMBER = ?", [(i,) for i in id_list])
+
+    conn.commit()
+    conn.close()
+    return redirect(url_for("inventory_table"))
+
+
+@app.route("/UpdateRole/<int:user_id>", methods=['POST'])
+def UpdateRole(user_id):
+    conn = sqlite3.connect("LoginData.db")
+    cursor = conn.cursor()
+    cursor.execute("UPDATE USERS SET Admin = 1 WHERE UNIQUE_ID = ?", (user_id,)) 
+    conn.commit()
+    conn.close()
+    return redirect(url_for("admin_page"))
 
 
 
