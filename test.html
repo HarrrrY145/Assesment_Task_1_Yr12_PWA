@@ -6,191 +6,163 @@
 <title>Inventory – Replenishment</title>
 
 <style>
-    body {
-        margin: 0;
-        font-family: "Segoe UI", Arial, sans-serif;
-        background: #f8f9fb;
-        color: #444;
-    }
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #f8f9fb;
+    color: #444;
+}
 
-    /* TOP MENU BAR -------------------------------------------------- */
-    .top-menu {
-        display: flex;
-        align-items: center;
-        height: 50px;
-        background: #ffffff;
-        border-bottom: 1px solid #ddd;
-        padding: 0 20px;
-        gap: 25px;
-        font-size: 14px;
-    }
+/* TOP MENU BAR -------------------------------------------------- */
+.top-menu {
+    display: flex;
+    align-items: center;
+    height: 50px;
+    background: #ffffff;
+    border-bottom: 1px solid #ddd;
+    padding: 0 20px;
+    gap: 25px;
+    font-size: 14px;
+}
 
-    .top-menu div {
-        cursor: pointer;
-    }
+.top-menu div {
+    cursor: pointer;
+}
 
-    .top-menu div:hover {
-        color: #4c84ff;
-    }
+.top-menu div:hover {
+    color: #4c84ff;
+}
 
-    .top-menu .active {
-        font-weight: 600;
-        color: #4c84ff;
-    }
+.top-menu .active {
+    font-weight: 600;
+    color: #4c84ff;
+}
 
-    /* ACTION BAR ----------------------------------------------------- */
-    .action-bar {
-        padding: 10px 20px;
-        background: #ffffff;
-        border-bottom: 1px solid #ddd;
-        display: flex;
-        gap: 10px;
-        align-items: center;
-    }
-    .search-input {
-        flex: 1;
-        padding: 7px 12px;
-        font-size: 14px;
-        border: 1px solid #ccc;
-        border-radius: 6px;
-   }
+/* ACTION BAR ----------------------------------------------------- */
+.action-bar {
+    padding: 10px 20px;
+    background: #ffffff;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.search-input {
+    flex: 1;
+    padding: 7px 12px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
 
-    .btn {
-        background: #4c84ff;
-        border: none;
-        padding: 7px 14px;
-        border-radius: 6px;
-        color: white;
-        font-size: 14px;
-        cursor: pointer;
-    }
+.btn {
+    background: #4c84ff;
+    border: none;
+    padding: 7px 14px;
+    border-radius: 6px;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+}
 
-    .btn:hover {
-        background: #356ee0;
-    }
+.btn:hover {
+    background: #356ee0;
+}
 
-    /* SUB TABS ------------------------------------------------------- */
-    .subtabs {
-        display: flex;
-        padding: 10px 20px;
-        background: #ffffff;
-        border-bottom: 1px solid #ddd;
-        gap: 20px;
-        font-size: 14px;
-    }
+/* SUB TABS ------------------------------------------------------- */
+.subtabs {
+    display: flex;
+    padding: 10px 20px;
+    background: #ffffff;
+    border-bottom: 1px solid #ddd;
+    gap: 20px;
+    font-size: 14px;
+}
 
-    .subtabs div {
-        cursor: pointer;
-        padding-bottom: 6px;
-    }
+.subtabs div {
+    cursor: pointer;
+    padding-bottom: 6px;
+}
 
-    .subtabs .active {
-        font-weight: bold;
-        border-bottom: 3px solid #4c84ff;
-    }
+.subtabs .active {
+    font-weight: bold;
+    border-bottom: 3px solid #4c84ff;
+}
 
-    /* PAGE LAYOUT ---------------------------------------------------- */
-    .page {
-        display: flex;
-        height: calc(100vh - 140px);
-    }
+/* PAGE LAYOUT ---------------------------------------------------- */
+.page {
+    display: flex;
+    height: calc(100vh - 140px);
+}
 
-    /* LEFT SIDEBAR -------------------------------------------------- */
-    .sidebar {
-        width: 250px;
-        background: #ffffff;
-        border-right: 1px solid #ddd;
-        padding: 15px;
-        overflow-y: auto;
-    }
+/* MAIN CONTENT --------------------------------------------------- */
+.main {
+    flex: 1;
+    padding: 15px;
+    overflow-x: auto;
+}
 
-    .sidebar h4 {
-        margin: 15px 0 5px;
-        color: #6d6d6d;
-        font-size: 14px;
-        text-transform: uppercase;
-    }
+/* TABLE ---------------------------------------------------------- */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+    text-align: left;
+}
 
-    .tree {
-        margin-left: 10px;
-    }
+thead {
+    background: #f2f4f7;
+}
 
-    .tree div {
-        padding: 4px 0;
-        cursor: pointer;
-    }
+th, td {
+    padding: 10px;
+    border-bottom: 1px solid #e1e1e1;
+    font-size: 14px;
+}
 
-    .tree div:hover {
-        background: #eef3fa;
-        border-radius: 4px;
-    }
+th {
+    font-weight: 600;
+    color: #555;
+}
 
-    /* MAIN CONTENT --------------------------------------------------- */
-    .main {
-        flex: 1;
-        padding: 15px;
-        overflow-x: auto;
-    }
+tr:hover {
+    background: #eef6ff;
+}
 
-    /* TABLE ---------------------------------------------------------- */
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        background: #ffffff;
-    }
+.selected-row {
+    background: #dfeeff !important;
+}
 
-    thead {
-        background: #f2f4f7;
-    }
+.checkbox {
+    width: 30px;
+}
 
-    th, td {
-        padding: 10px;
-        border-bottom: 1px solid #e1e1e1;
-        font-size: 14px;
-    }
+/* TOP RIGHT INFO ------------------------------------------------- */
+.info-right {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
 
-    th {
-        font-weight: 600;
-        color: #555;
-    }
+.info-circle {
+    background: #4c84ff;
+    color: white;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.logo {
+    height: 65px;
+    width: 65px;
+    border-radius: 50%;
+}
 
-    tr:hover {
-        background: #eef6ff;
-    }
-
-    .selected-row {
-        background: #dfeeff !important;
-    }
-
-    .checkbox {
-        width: 30px;
-    }
-
-    /* TOP RIGHT INFO ------------------------------------------------- */
-    .info-right {
-        margin-left: auto;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    .info-circle {
-        background: #4c84ff;
-        color: white;
-        border-radius: 50%;
-        width: 22px;
-        height: 22px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-    }
-    .logo {
-        height: 65px;
-        width: 65px;
-        border-radius: 50%;
-    }
-  .top-menu a {
+.top-menu a {
     cursor: pointer;
     text-decoration: none;
     color: inherit;
@@ -205,113 +177,50 @@
     color: #4c84ff;
 }
 
+main .UnknownUser{
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    width: 150px;
+    height: 150px;
+    background-image: url(../static/profile.png);
+    background-position: center;
+    background-size: cover;
+    border-radius: 1500px;
+    border-color: #e9e9e9;
+    margin-top: 1%;
+}
+
 </style>
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
-<body>
+<body class="background-image-1">
 
-<!-- TOP MENU -->
-<div class="top-menu">
-    <img src="/static/Logo-Small.png" class="logo">
-    <a href="/userHome">Inventory</a>
-    <div>Dashboard</div>
-    <div>Orders</div>    
+    <main style="text-align:center; padding-top:60px;">
+        <h1>
+            Inventory & Order <br>
+            Management System
+        </h1>
 
-    {% if session.is_admin %}
-    <a href="/adminPage" class="active">Admin</a>
-    {% endif %}   
+        <form method="post" action="/login_validation" style="margin-top:30px;">
+            <input class="search-input" type="text" name="login_ID" placeholder="Enter Username" required><br><br>
+            <input class="search-input" type="password" name="password" placeholder="Enter Password" required><br><br>
 
-    
-    <div class="info-right">
-      <a href="/">Sign Out</a>
-    </div>
-</div>
+            <button class="btn" type="submit">Login</button>
+        </form>
 
-<!-- ACTION BUTTONS -->
-<div class="action-bar">
-  <form action="{{url_for('addInventory')}}" method="get">
-  <button id="addNewInventory" class="btn""> New</button>
-  </form>
-    <button class="btn">Update</button>
-    <input type="text" id="searchInput" class="search-input" onkeyup="searchbar()" placeholder="Search for Usernames.." title="Type in a name">
-
-</div>
-
-<!-- SUBTABS -->
-<div class="subtabs">
-    <div class="active">All</div>
-</div>
-
-<!-- PAGE CONTENT -->
-<div class="page">
-
-    <!-- LEFT SIDEBAR -->
-    <div class="sidebar">
-        <h4>User Infomation</h4>
-    </div>
-
-    <!-- MAIN CONTENT (TABLE) -->
-    <div class="main">
-        <table id="inventoryTable">
-          <thead>
-              <tr>
-                <th>Select</th>
-                <th>User</th>
-                <th>Password</th>
-                <th>Role</th>
-                <th>Deactivate</th>
-              </tr>
-          </thead>
-          <tbody>
-        {% for row in item %}
-        <tr>
-            <td><input type="checkbox"></td>
-            <td>{{ row[2] }}</td>
-            <td>{{ row[3] }}</td>
-            <td>
-                {%if row[1]%}
-                    Admin   
-                {% else %}
-                    User
-                {% endif %}
-            </td>
-            <td>
-            <form action="{{ url_for('delete_user', user_id=row[0])}}" method="post">
-            <button class="btn" type="submit">
-                <i class="fa fa-trash"></i>
-            </button>
-            </form>
-            </td>
-        </tr>
-      {% endfor %}
-          </tbody>
-      </table>
-    </div>
-</div>
+        <form action="{{ url_for('newUser') }}" method="get" style="margin-top:20px;">
+            <button class="btn" type="submit">New User</button>
+        </form>
+    </main>
 
 </body>
 </html>
 
-<script>
-  
-function searchbar() {
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("searchInput");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("inventoryTable");
-  tr = table.getElementsByTagName("tr");
 
-  for (i = 1; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[2]; // Product column
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }
-  }
-}
-
-</script>
