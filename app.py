@@ -1,11 +1,12 @@
+print("http://localhost:8080/")
+print("http://localhost:8080/userHome")
+
+
 from flask import Flask, render_template, request, redirect, session, url_for
 import sqlite3
 import os
 from waitress import serve 
 
-
-print("http://localhost:8080/")
-print("http://localhost:8080/userHome")
 
 
 
