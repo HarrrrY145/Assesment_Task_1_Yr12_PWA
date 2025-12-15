@@ -3,16 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Create Account</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
-<body>
-    <main>
-        <form method="post" action="/add_user">
+<body class="background-image-1" style="size: 10%;">
+
+    <main style="text-align:center">
+        <img src="/static/profile_pic.png" style="size: 10%; margin-top: 15%;">
+
+        <form method="post" action="/add_user" style="margin-top:10px;">
             <input type="Login_ID" name="Login_ID" placeholder="Create a Login ID"><br>
             <input type="password" name="password" placeholder="Create a Password"><br>
-            <button type="submit" value="signUp">create account</button>
+            <button class="btn" type="submit" value="signUp">Create Account</button>         
         </form>
-        <p>Already have an account<br><a href='/login.html'>login</a></p>
+
+        <p style="margin-top:20px;">
+            Already have an account?
+        </p>
+
+        <form action="/" method="get">
+            <button class="btn" type="submit">
+                Login
+            </button>
+        </form>
     </main>
+
 </body>
 </html>

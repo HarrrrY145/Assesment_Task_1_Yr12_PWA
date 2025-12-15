@@ -1,6 +1,7 @@
 print("http://localhost:8080/")
 print("http://localhost:8080/userHome")
 
+# Importing  ----------------------------------------------------------------------------------------------------------------------------------------------------------------->
 
 from flask import Flask, render_template, request, redirect, session, url_for
 import sqlite3
@@ -13,10 +14,9 @@ from waitress import serve
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
-# Routing the user to the login page. 
+# Receving data from tables ----------------------------------------------------------------------------------------------------------------------------------------------------------------->
 
-
-#Getting all from the inventory table
+# Receving data from the inventory 
 def get_inventory_table():
     conn = sqlite3.connect("LoginData.db")
     cursor = conn.cursor()
@@ -25,7 +25,7 @@ def get_inventory_table():
     conn.close()
     return row
 
-# Getting all from the users 
+# Receving data from the users 
 def get_user_table():
     conn = sqlite3.connect("LoginData.db")
     cursor = conn.cursor()
@@ -34,36 +34,38 @@ def get_user_table():
     conn.close()
     return row
 
-@app.route("/userHome", methods=["GET", "POST"])
+# Showing most recent inventory table:
+@app.route("/userHome", methods=["GET", "POST"]) 
 def inventory_table():
     item = get_inventory_table()
     return render_template("userHome.html", item=item)
 
-@app.route('/') 
-def login():
-    return render_template('login.html')
 
-
-
-
-@app.route('/login_validation', methods=['POST'])
+# Validating users infomation 
+@app.route('/login_validation', methods=['POST']) 
 def login_valdiation():
+    # Receving login_id and password from HTML page. 
     login_ID = request.form.get('login_ID')
     password = request.form.get('password')
 
+    # Connecting to the database 
     connection = sqlite3.connect('LoginData.db')
     cursor = connection.cursor()
 
-    user = cursor.execute("SELECT UNIQUE_ID, Admin, login_ID FROM USERS WHERE login_ID=? AND password=?", (login_ID,password)).fetchone()
-    
-    #if user exists
-    if user: 
-        session['user_id'] = user [0]
-        session['is_admin'] = bool(user[1])
-        session['login_ID'] = user [2]
+    # Querying 
+    user = cursor.execute("SELECT UNIQUE_ID, Admin, login_ID FROM USERS WHERE login_ID=? AND password=?", (login_ID,password)).fetchone()     # Return the first matching row or none if no match
 
-        return redirect("/userHome")
     
+    # if user exists
+    if user: 
+        # Creating sessions for individual users
+        session['user_id'] = user [0] # Primary key for user in the database
+        session['is_admin'] = bool(user[1]) # Validating if the user is an admin or not | 0 = not admin | 1 = admin |
+        session['login_ID'] = user [2] # Username/Login string 
+
+        return redirect("/userHome") 
+    
+    # If user does not exist
     else:
         return redirect('/')
     
@@ -79,6 +81,10 @@ def admin_page():
     return render_template("adminPage.html", item=item)
 
 
+# Rendering the login.html 
+@app.route('/') # If user is routed to '/'
+def login():
+    return render_template('login.html') # Render the login.html page
 
 @app.route('/verification')
 def signUp():
