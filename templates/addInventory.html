@@ -3,18 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <form method="post" action="/add_inventory" method="POST">
-        <input type="Serial_Number" name="Serial_Number" placeholder="Enter Serial Code"><br>
-        <input type="Product_Name" name="Product_Name" placeholder="Enter Product Name"><br>
-        <input type="Quantity" name="Quantity" placeholder="Enter Quantity"><br>
-        <input type="Price" name="Price" placeholder="Enter Price"><br>
-        <input type="Store" name="Store" placeholder="Enter Store"><br>
+    <title>Add Inventory</title>
 
-        <button type="submit" value="addInventory">Submit New Inventory</button>
-    </form>
-        <p>Back<br><a href='/userHome.html'>login</a></p>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+    <main style="text-align:center; padding-top:50px;">
+        <h1>Add New Inventory Item</h1>
+        <p style="color:#555; margin-bottom:30px;">
+            Fill out the fields below to add a new item
+        </p>
+
+        <form method="post" action="/add_inventory" style="max-width:400px; margin:auto;">
+            <input class="search-input" type="text" name="Serial_Number" placeholder="Enter Serial Code" required><br><br>
+            <input class="search-input" type="text" name="Product_Name" placeholder="Enter Product Name" required><br><br>
+            <input class="search-input" type="number" name="Quantity" placeholder="Enter Quantity" required><br><br>
+            <input class="search-input" type="number" step="0.01" name="Price" placeholder="Enter Price" required><br><br>
+            <input class="search-input" type="text" name="Store" placeholder="Enter Store" required><br><br>
+
+            <button class="btn" type="submit" value="addInventory">
+                Submit New Inventory
+            </button>
+        </form>
+
+        <p style="margin-top:25px;">
+            Back to Inventory Dashboard<br>
+            <a href="/userHome" style="color:#4c84ff; font-weight:600; text-decoration:none;">
+                Go Back
+            </a>
+        </p>
+    </main>
+
 </body>
 </html>

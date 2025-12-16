@@ -3,22 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Admin - Add User</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
-<body>
-    <main>
-        <form method="post" action="/admin_add_user">
-            <input type="Login_ID" name="Login_ID" placeholder="Create a Login ID"><br>
-            <input type="password" name="password" placeholder="Create a Password"><br>
-            <label for="role">Choose role:</label>
-            <select name="role" id="role">
-              <option value="">--Select a role--</option>
+    <main style="text-align:center; padding-top:50px;">
+        <h1>Add New User</h1>
+        <p style="color:#555; margin-bottom:30px;">
+            Fill out the fields below to create a new user
+        </p>
+
+        <form method="post" action="/admin_add_user" style="max-width:400px; margin:auto;">
+            <input class="search-input" type="text" name="Login_ID" placeholder="Create Login ID" required><br><br>
+            <input class="search-input" type="password" name="password" placeholder="Create Password" required><br><br>
+
+            <label for="role" style="display:block; text-align:left; margin-bottom:5px;">Choose role:</label>
+            <select class="search-input" name="role" id="role" required>
+                <option value="">--Select a role--</option>
                 <option value="Admin">Admin</option>
                 <option value="General">General</option>
             </select>
             <br><br>
-            <button type="submit" value="signUp">create account</button>
+
+            <button class="btn" type="submit" value="signUp">
+                Create Account
+            </button>
         </form>
+
+        <p style="margin-top:25px;">
+            Back to <a href="/userHome" style="color:#4c84ff; font-weight:600; text-decoration:none;">Dashboard</a>
+        </p>
     </main>
+
 </body>
 </html>
